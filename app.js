@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const users = require('./routes/users');
+const movies = require('./routes/movies');
 const NotFoundError = require('./errors/not-found-error');
 
 const { PORT = 3000 } = process.env;
@@ -14,6 +16,9 @@ mongoose.connect('mongodb://localhost:27017/favfilmsdb', {
 });
 
 app.use(express.json());
+
+app.use('/', users);
+app.use('/', movies);
 
 app.use('*', () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
