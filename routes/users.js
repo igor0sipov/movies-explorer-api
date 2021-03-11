@@ -7,3 +7,5 @@ const {
 usersRouter.get('/users/me', getCurrentUser);
 
 usersRouter.patch('users/me', editUserInfo);
+
+module.exports = usersRouter;
