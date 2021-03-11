@@ -24,10 +24,10 @@ module.exports.editUserInfo = (req, res, next) => {
     .then((me) => {
       res.send(me);
     }).catch((err) => {
-      if (err.errors.name && err.errors.name.name === 'ValidatorError') {
+      if (err.errors.email && err.errors.email.name === 'ValidatorError') {
         throw new BadRequestError(err.message);
       }
-      if (err.errors.about && err.errors.about.name === 'ValidatorError') {
+      if (err.errors.name && err.errors.name.name === 'ValidatorError') {
         throw new BadRequestError(err.message);
       }
     }).catch(next);
