@@ -3,8 +3,8 @@ const User = require('../models/users');
 const BadRequestError = require('../errors/bad-request-error');
 const ForbiddenError = require('../errors/forbidden-error');
 
-module.exports.getAllmovies = (req, res, next) => {
-  Movie.findById({}).then((movieList) => res.send(movieList)).catch(next);
+module.exports.getAllMovies = (req, res, next) => {
+  Movie.find({}).then((movieList) => res.send(movieList)).catch(next);
 };
 
 module.exports.addMovie = (req, res, next) => {
