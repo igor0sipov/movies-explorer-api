@@ -95,3 +95,12 @@ module.exports.login = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.signout = (req, res) => {
+  try {
+    res.clearCookie('token');
+  } catch (error) {
+    throw new BadRequestError(error);
+  }
+  return res.send({ message: 'Успешно!' });
+};
