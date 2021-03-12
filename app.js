@@ -6,6 +6,7 @@ const users = require('./routes/users');
 const movies = require('./routes/movies');
 const NotFoundError = require('./errors/not-found-error');
 const { createUser, login, signout } = require('./controllers/users');
+const auth = require('./middlewares/auth.js');
 
 const { PORT = 3000 } = process.env;
 
@@ -35,6 +36,8 @@ app.post('/signup', celebrate({
     name: Joi.string().min(2).max(32),
   }),
 }), createUser);
+
+app.use(auth);
 
 app.use('/', users);
 app.use('/', movies);
