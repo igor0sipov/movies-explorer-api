@@ -10,13 +10,13 @@ const NotFoundError = require('./errors/not-found-error');
 const { createUser, login, signout } = require('./controllers/users');
 const auth = require('./middlewares/auth.js');
 
-const { PORT = 3000, DB_NAME } = process.env;
+const { PORT = 3000, DB_NAME, NODE_ENV } = process.env;
 
 const app = express();
 
 app.use(cookieParser());
 
-mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`, {
+mongoose.connect(`mongodb://localhost:27017/${NODE_ENV === 'production' ? DB_NAME : 'favfilmsdb'}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
