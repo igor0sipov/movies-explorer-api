@@ -42,27 +42,29 @@ module.exports.createUser = (req, res, next) => {
   bcrypt.hash(password, 10).then((hashedPassword) => {
     User.init();
     return hashedPassword;
-  }).then((hashedPassword) => User.create(
-    [
-      {
-        email,
-        password: hashedPassword,
-        name,
-      },
-    ],
-    { runValidators: true },
-  ))
+  })
+    .then((hashedPassword) => User.create(
+      [
+        {
+          email,
+          password: hashedPassword,
+          name,
+        },
+      ],
+      { runValidators: true },
+    ))
     .then((user) => {
       res.send({
         email: user[0].email, name: user[0].name,
-      }).catch((err) => {
-        if (err.message.startsWith('E11000')) {
-          throw new ConflictError('Пользователь с таким email уже существует');
-        }
-        if (err.errors.name && err.errors.name.name === 'ValidatorError') {
-          throw new BadRequestError(err.message);
-        }
       });
+    })
+    .catch((err) => {
+      if (err.message.startsWith('E11000')) {
+        throw new ConflictError('Пользователь с таким email уже существует');
+      }
+      if (err.errors.name && err.errors.name.name === 'ValidatorError') {
+        throw new BadRequestError(err.message);
+      }
     })
     .catch(next);
 };
