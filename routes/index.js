@@ -6,6 +6,7 @@ const movies = require('./movies');
 const NotFoundError = require('../errors/not-found-error');
 const { createUser, login, signout } = require('../controllers/users');
 const auth = require('../middlewares/auth.js');
+const { errorText } = require('../configs/config');
 
 indexRouter.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -30,7 +31,7 @@ indexRouter.use('/', movies);
 indexRouter.post('/signout', signout);
 
 indexRouter.use('*', () => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
+  throw new NotFoundError(errorText.resourceNotFound);
 });
 
 module.exports = indexRouter;
