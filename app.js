@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { Joi, celebrate, errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const users = require('./routes/users');
 const movies = require('./routes/movies');
 const NotFoundError = require('./errors/not-found-error');
@@ -22,6 +23,8 @@ mongoose.connect('mongodb://localhost:27017/favfilmsdb', {
 });
 
 app.use(express.json());
+
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -48,6 +51,8 @@ app.post('/signout', signout);
 app.use('*', () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
