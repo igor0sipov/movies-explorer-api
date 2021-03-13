@@ -2,13 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { Joi, celebrate, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const users = require('./routes/users');
-const movies = require('./routes/movies');
-const NotFoundError = require('./errors/not-found-error');
-const { createUser, login, signout } = require('./controllers/users');
-const auth = require('./middlewares/auth.js');
+const index = require('./routes/index');
 
 const { PORT = 3000, DB_NAME, NODE_ENV } = process.env;
 
@@ -26,31 +22,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().min(2).max(60),
-    password: Joi.string().required().min(8).max(32),
-  }),
-}), login);
-
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().min(2).max(60),
-    password: Joi.string().required().min(8).max(32),
-    name: Joi.string().min(2).max(32),
-  }),
-}), createUser);
-
-app.use(auth);
-
-app.use('/', users);
-app.use('/', movies);
-
-app.post('/signout', signout);
-
-app.use('*', () => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
-});
+app.use(index);
 
 app.use(errorLogger);
 
