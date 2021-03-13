@@ -5,12 +5,13 @@ const NotFoundError = require('../errors/not-found-error');
 const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
 const UnauthorizedError = require('../errors/unauthorized-error');
+const { errorText } = require('../configs/config');
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id).then((currentUser) => {
     res.send(currentUser);
   }).catch(() => {
-    throw new NotFoundError('Нет пользователя с таким id');
+    throw new NotFoundError(errorText.userNotFound);
   }).catch(next);
 };
 
@@ -60,7 +61,7 @@ module.exports.createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.message.startsWith('E11000')) {
-        throw new ConflictError('Пользователь с таким email уже существует');
+        throw new ConflictError(errorText.sameUser);
       }
       if (err.errors.name && err.errors.name.name === 'ValidatorError') {
         throw new BadRequestError(err.message);
