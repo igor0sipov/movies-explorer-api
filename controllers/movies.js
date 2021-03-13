@@ -1,5 +1,5 @@
 const Movie = require('../models/movie');
-const User = require('../models/users');
+const User = require('../models/user');
 const BadRequestError = require('../errors/bad-request-error');
 const ForbiddenError = require('../errors/forbidden-error');
 
