@@ -69,6 +69,13 @@ module.exports.createUser = (req, res, next) => {
     .catch(next);
 };
 
+// Для указания опции валидации email при создании пользователь объект пользователя обернут в массив
+// src: https://mongoosejs.com/docs/api.html#model_Model.create;
+
+// User.init() добавлено для корректного срабатывания unique
+// src: https://luxiyalu.com/mongoose-unique-not-working/;
+// без этого пользователи добавлялись без проверки уникальности email
+
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   const { NODE_ENV, JWT_SECRET, ALTERNATIVE_SECRET } = process.env;
