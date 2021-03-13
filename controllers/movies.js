@@ -8,6 +8,9 @@ module.exports.getAllMovies = (req, res, next) => {
 };
 
 module.exports.addMovie = (req, res, next) => {
+  const randomMovieId = [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+  // временное решение
+
   const {
     country,
     director,
@@ -33,6 +36,7 @@ module.exports.addMovie = (req, res, next) => {
       trailer,
       nameRU,
       nameEN,
+      movieId: randomMovieId,
       thumbnail,
     }], { runValidators: true }))
     .then((movie) => res.send(movie[0]))
