@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const limiter = require('./configs/rateLimiter');
@@ -15,6 +16,8 @@ const { PORT = 3001, DB_NAME, NODE_ENV } = process.env;
 const app = express();
 
 app.use(limiter);
+
+app.use(cors());
 
 app.use(cookieParser());
 
