@@ -10,7 +10,7 @@ const index = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
 const { dbName } = require('./configs/config');
 
-const { PORT = 3000, DB_NAME, NODE_ENV } = process.env;
+const { PORT = 3001, DB_NAME, NODE_ENV } = process.env;
 
 const app = express();
 
