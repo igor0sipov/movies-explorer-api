@@ -1,8 +1,22 @@
-module.exports.errorText = {
+module.exports = {
+  dbName: 'favfilmsdb',
   resourceNotFound: 'Запрашиваемый ресурс не найден',
   someoneElsesMovie: 'Нельзя удалять чужие фильмы',
   movieNotFound: 'Нет фильма с таким id',
   userNotFound: 'Нет пользователя с таким id',
   sameUser: 'Пользователь с таким email уже существует',
   authorizationRequired: 'Необходима авторизация',
+  authorizationFailed: 'Не удалось авторизоваться',
+  wrongUserCredentials: 'Неправильные почта или пароль',
+  wrongEmail: 'Введен некорректный email',
+  wrongLink: 'Некорректная ссылка',
+  getErrorText: (label) => ({
+    'string.base': `Поле ${label} должно быть текстовой строкой`,
+    'string.empty': `Поле ${label} не может быть пустым`,
+    'string.min': `Минимальная длина поля ${label}: {#limit}`,
+    'string.max': `Максимальная длина поля ${label}: {#limit} `,
+    'any.required': `Поле ${label} обязательное`,
+    'number.base': `Поле ${label} должно быть цифрой`,
+    'string.pattern.base': `Поле ${label} должно быть ссылкой`,
+  }),
 };
