@@ -3,7 +3,7 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/bad-request-error');
 const ForbiddenError = require('../errors/forbidden-error');
 const NotFoundError = require('../errors/not-found-error');
-const { errorText } = require('../configs/config');
+const { someoneElsesMovie, movieNotFound } = require('../configs/config');
 
 module.exports.getAllMovies = (req, res, next) => {
   Movie.find({}).then((movieList) => res.send(movieList)).catch(next);
@@ -43,19 +43,7 @@ module.exports.addMovie = (req, res, next) => {
     }], { runValidators: true }))
     .then((movie) => res.send(movie[0]))
     .catch((err) => {
-      if (err.errors.country
-        || err.errors.director
-        || err.errors.duration
-        || err.errors.year
-        || err.errors.description
-        || err.errors.image
-        || err.errors.trailer
-        || err.errors.nameRU
-        || err.errors.nameEN
-        || err.errors.thumbnail
-      ) {
-        throw new BadRequestError(err.message);
-      }
+      throw new BadRequestError(err);
     })
     .catch(next);
 };
@@ -64,12 +52,12 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId).then((movie) => {
     if (movie !== null) {
       if (req.user._id !== movie.owner.toString()) {
-        throw new ForbiddenError(errorText.someoneElsesMovie);
+        throw new ForbiddenError(someoneElsesMovie);
       } else {
         return Movie.deleteOne({ _id: movie._id }).then(() => movie);
       }
     } else {
-      throw new NotFoundError(errorText.movieNotFound);
+      throw new NotFoundError(movieNotFound);
     }
   })
     .then((movie) => {
