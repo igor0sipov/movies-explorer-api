@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { wrongLink } = require('../configs/config');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -29,7 +30,7 @@ const movieSchema = new mongoose.Schema({
 
         return regex.test(url);
       },
-      message: 'Некорректная ссылка',
+      message: wrongLink,
     },
     required: true,
   },
@@ -41,7 +42,7 @@ const movieSchema = new mongoose.Schema({
 
         return regex.test(url);
       },
-      message: 'Некорректная ссылка',
+      message: wrongLink,
     },
     required: true,
   },
@@ -53,7 +54,7 @@ const movieSchema = new mongoose.Schema({
 
         return regex.test(url);
       },
-      message: 'Некорректная ссылка',
+      message: wrongLink,
     },
     required: true,
   },
