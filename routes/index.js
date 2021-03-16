@@ -27,12 +27,12 @@ indexRouter.post('/signup', celebrate({
   }),
 }), createUser);
 
+indexRouter.post('/signout', signout);
+
 indexRouter.use(auth);
 
 indexRouter.use('/', users);
 indexRouter.use('/', movies);
-
-indexRouter.post('/signout', signout);
 
 indexRouter.use('*', () => {
   throw new NotFoundError(resourceNotFound);
