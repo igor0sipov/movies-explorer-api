@@ -64,7 +64,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: Number,
+    type: Number, // изменил тип на Number т.к. id фильма на api "https://api.nomoreparties.co/beatfilm-movies" -- цифра.
     required: true,
     unique: true,
   },
