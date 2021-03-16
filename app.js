@@ -15,8 +15,6 @@ const { PORT = 3001, DB_NAME, NODE_ENV } = process.env;
 
 const app = express();
 
-app.use(limiter);
-
 app.use(cors());
 
 app.use(cookieParser());
@@ -30,6 +28,8 @@ mongoose.connect(`mongodb://localhost:27017/${NODE_ENV === 'production' ? DB_NAM
 app.use(express.json());
 
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.use(helmet());
 
