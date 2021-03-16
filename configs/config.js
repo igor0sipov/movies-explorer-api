@@ -5,6 +5,7 @@ module.exports = {
   movieNotFound: 'Нет фильма с таким id',
   userNotFound: 'Нет пользователя с таким id',
   sameUser: 'Пользователь с таким email уже существует',
+  sameMovie: 'Фильм с таким movieId уже существует',
   authorizationRequired: 'Необходима авторизация',
   authorizationFailed: 'Не удалось авторизоваться',
   wrongUserCredentials: 'Неправильные почта или пароль',
