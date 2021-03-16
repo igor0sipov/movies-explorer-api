@@ -10,6 +10,7 @@ module.exports = {
   wrongUserCredentials: 'Неправильные почта или пароль',
   wrongEmail: 'Введен некорректный email',
   wrongLink: 'Некорректная ссылка',
+  devJwtSecret: '908f8f3afc1d8d6933041c9134ca019993aaee7ab6685648abce113cd738731f',
   getErrorText: (label) => ({
     'string.base': `Поле ${label} должно быть текстовой строкой`,
     'string.empty': `Поле ${label} не может быть пустым`,
