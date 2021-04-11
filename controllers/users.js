@@ -6,15 +6,21 @@ const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
 const UnauthorizedError = require('../errors/unauthorized-error');
 const {
-  userNotFound, sameUser, authorizationFailed, devJwtSecret,
+  userNotFound,
+  sameUser,
+  authorizationFailed,
+  devJwtSecret,
 } = require('../configs/config');
 
 module.exports.getCurrentUser = (req, res, next) => {
-  User.findById(req.user._id).then((currentUser) => {
-    res.send(currentUser);
-  }).catch(() => {
-    throw new NotFoundError(userNotFound);
-  }).catch(next);
+  User.findById(req.user._id)
+    .then((currentUser) => {
+      res.send(currentUser);
+    })
+    .catch(() => {
+      throw new NotFoundError(userNotFound);
+    })
+    .catch(next);
 };
 
 module.exports.editUserInfo = (req, res, next) => {
@@ -30,22 +36,26 @@ module.exports.editUserInfo = (req, res, next) => {
   )
     .then((me) => {
       res.send(me);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       if (err.errors.email && err.errors.email.name === 'ValidatorError') {
         throw new BadRequestError(err.message);
       }
       if (err.errors.name && err.errors.name.name === 'ValidatorError') {
         throw new BadRequestError(err.message);
       }
-    }).catch(next);
+    })
+    .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
   const { email, password, name } = req.body;
-  bcrypt.hash(password, 10).then((hashedPassword) => {
-    User.init();
-    return hashedPassword;
-  })
+  bcrypt
+    .hash(password, 10)
+    .then((hashedPassword) => {
+      User.init();
+      return hashedPassword;
+    })
     .then((hashedPassword) => User.create(
       [
         {
@@ -58,7 +68,9 @@ module.exports.createUser = (req, res, next) => {
     ))
     .then((user) => {
       res.send({
-        email: user[0].email, name: user[0].name,
+        email: user[0].email,
+        name: user[0].name,
+        _id: user[0]._id,
       });
     })
     .catch((err) => {
@@ -86,9 +98,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production'
-          ? JWT_SECRET
-          : devJwtSecret,
+        NODE_ENV === 'production' ? JWT_SECRET : devJwtSecret,
         { expiresIn: '7d' },
       );
 
@@ -98,7 +108,11 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Успешно!' })
+        .send({
+          email: user.email,
+          name: user.name,
+          _id: user._id,
+        })
         .end();
     })
     .catch(() => {

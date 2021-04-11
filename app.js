@@ -15,15 +15,39 @@ const { PORT = 3001, DB_NAME, NODE_ENV } = process.env;
 
 const app = express();
 
-app.use(cors());
+const allowedUrls = [
+  'http://mesto.fakealien.students.nomoredomains.icu',
+  'https://mesto.fakealien.students.nomoredomains.icu',
+  'http://www.mesto.fakealien.students.nomoredomains.icu',
+  'https://www.mesto.fakealien.students.nomoredomains.icu',
+  'http://localhost',
+  'http://localhost:3000',
+  'http://lvh.me',
+];
+const corsOptions = {
+  origin: allowedUrls,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  allowedHeaders: [
+    'Content-Type',
+    'Access-Control-Allow-Headers',
+    'Authorization',
+    'X-Requested-With',
+  ],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
-mongoose.connect(`mongodb://localhost:27017/${NODE_ENV === 'production' ? DB_NAME : dbName}`, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose.connect(
+  `mongodb://localhost:27017/${NODE_ENV === 'production' ? DB_NAME : dbName}`,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  },
+);
 
 app.use(express.json());
 
