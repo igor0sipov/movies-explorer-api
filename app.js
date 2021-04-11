@@ -16,13 +16,10 @@ const { PORT = 3001, DB_NAME, NODE_ENV } = process.env;
 const app = express();
 
 const allowedUrls = [
-  'http://mesto.fakealien.students.nomoredomains.icu',
-  'https://mesto.fakealien.students.nomoredomains.icu',
-  'http://www.mesto.fakealien.students.nomoredomains.icu',
-  'https://www.mesto.fakealien.students.nomoredomains.icu',
-  'http://localhost',
-  'http://localhost:3000',
-  'http://lvh.me',
+  'https://api.movies-explorer.fakealien.students.nomoredomains.icu',
+  'http://api.movies-explorer.fakealien.students.nomoredomains.icu',
+  'https://www.api.movies-explorer.fakealien.students.nomoredomains.icu',
+  'http://www.api.movies-explorer.fakealien.students.nomoredomains.icu',
 ];
 const corsOptions = {
   origin: allowedUrls,
