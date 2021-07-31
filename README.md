@@ -42,6 +42,8 @@ POST /movies - Сохранение фильма в избранное
 DELETE /movies/:movieId - Удаление фильма из избранного
 ```
 
+Обратиться к API можно и онлайн:
+
 server-ip: 84.201.167.232
 
 [backend-api-domain(HTTPS)](https://api.movies-explorer.fakealien.students.nomoredomains.icu/)
