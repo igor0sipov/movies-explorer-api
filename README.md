@@ -39,7 +39,7 @@ POST /movies - Сохранение фильма в избранное
 ```
 
 ```bash
-GET /movies/:movieId - Удаление фильма из избранного
+DELETE /movies/:movieId - Удаление фильма из избранного
 ```
 
 server-ip: 84.201.167.232
