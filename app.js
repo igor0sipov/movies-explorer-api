@@ -20,6 +20,7 @@ const allowedUrls = [
   'http://movies-explorer.fakealien.students.nomoredomains.icu',
   'https://www.movies-explorer.fakealien.students.nomoredomains.icu',
   'http://www.movies-explorer.fakealien.students.nomoredomains.icu',
+  'http://localhost:3000',
 ];
 const corsOptions = {
   origin: allowedUrls,
